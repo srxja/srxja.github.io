@@ -9,30 +9,27 @@
 </head>
 
 <body>
-  <!-- The background animation canvas -->
-  <canvas id="particle-canvas"></canvas>
+  <header>
+    <div class="logo">sruja</div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <!-- A wrapper to keep your page content together and centered -->
-  <div class="page-content">
-    <header>
-      <div class="logo">sruja</div>
-      <nav>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
-
-    <main class="hero">
-      <div class="hero-content">
-        <h1>Welcome.</h1>
-        <p>Explore the mind of a future tech magnate.</p>
-      </div>
-    </main>
-  </div>
+  <main class="hero">
+    <!-- The canvas is now INSIDE the hero section to be contained -->
+    <canvas id="particle-canvas"></canvas>
+    
+    <div class="hero-content">
+      <h1>Welcome.</h1>
+      <p>Explore the mind of a future tech magnate.</p>
+    </div>
+  </main>
   
   <script src="particles.js"></script>
 </body>
