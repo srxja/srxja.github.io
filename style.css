@@ -12,7 +12,6 @@ body {
   font-family: 'Poppins', sans-serif;
   background: #0c0c0c;
   color: #ffffff;
-  /* Body is now scrollable */
 }
 
 /* ==================================
@@ -51,11 +50,9 @@ nav ul li a {
    ================================== */
 
 main {
-  /* Provides outer spacing for the hero box */
   padding: 0 3rem 3rem 3rem; 
 }
 
-/* Base styles for the .hero box on BOTH pages */
 .hero {
   width: 100%;
   border-radius: 20px;
@@ -72,13 +69,14 @@ main {
   width: 100%;
   height: 100%;
   z-index: 1;
+  /* --- NEW: The Cosmic Indigo theme is now GLOBAL for all pages --- */
+  background: radial-gradient(circle, #19224D, #070B1B);
 }
 
-/* The text content container */
 .hero-content {
   position: relative;
   z-index: 2;
-  padding: 0 2rem; /* Basic horizontal padding */
+  padding: 0 2rem;
 }
 
 
@@ -86,21 +84,14 @@ main {
    HOMEPAGE SPECIFIC STYLES
    ================================== */
 
-/* These styles apply ONLY when .hero does NOT have the .about-page class */
 .hero:not(.about-page) {
-  height: calc(100vh - 100px - 3rem); /* Header height + main bottom padding */
+  height: calc(100vh - 100px - 3rem);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
 
-/* Homepage Background */
-.hero:not(.about-page) #custom-particles {
-  background: radial-gradient(circle at center, rgba(78, 0, 150, 0.6), rgba(0, 20, 255, 0.2));
-}
-
-/* Homepage Welcome Text */
 .hero:not(.about-page) h1 {
   font-size: 6rem;
   font-weight: 700;
@@ -118,31 +109,21 @@ main {
    ABOUT PAGE SPECIFIC STYLES
    ================================== */
 
-/* These styles apply ONLY when .hero has the .about-page class */
 .about-page {
-  padding: 5rem 0; /* Lets the container grow with content */
-  text-align: center; /* Center all text */
+  padding: 5rem 0;
+  text-align: center;
 }
 
-/* About Page "Cosmic Indigo" Background */
-.about-page #custom-particles {
-  background: radial-gradient(circle, #19224D, #070B1B);
+/* --- NEW: Style for your circular photo --- */
+.about-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%; /* Makes it a circle */
+  object-fit: cover; /* Prevents image from stretching */
+  margin-bottom: 2rem;
+  border: 4px solid rgba(255, 255, 255, 0.1);
 }
 
-/* The "Planet" Graphic */
-.about-page::before {
-  content: '';
-  position: absolute;
-  top: -150px;
-  left: -150px;
-  width: 450px;
-  height: 450px;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  z-index: 0;
-}
-
-/* Single-Column Content Styling for About Page */
 .about-page .hero-content {
   max-width: 900px;
   margin: 0 auto;
@@ -153,6 +134,10 @@ main {
   font-weight: 700;
   margin-top: 3rem;
   margin-bottom: 1.5rem;
+}
+
+.about-page h2:first-of-type {
+  margin-top: 0; /* Removes extra space above "About Me" */
 }
 
 .about-page p {
