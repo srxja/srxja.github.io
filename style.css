@@ -11,8 +11,7 @@ body {
   color: #ffffff;
   height: 100vh;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  position: relative;
 }
 
 /* Header */
@@ -21,15 +20,15 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 2rem 3rem;
-  flex-shrink: 0;
   position: relative;
-  z-index: 10;
+  z-index: 2;
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 1px;
+  color: #ffffff;
 }
 
 nav ul {
@@ -67,34 +66,22 @@ nav ul li a:hover::after {
 
 /* Hero Section */
 .hero {
-  flex-grow: 1; 
-  margin: 0 3rem 2rem 3rem;
-  position: relative; /* CRITICAL: Establishes a positioning context for the canvas */
-  overflow: hidden;   /* CRITICAL: Clips the canvas to the rounded corners */
-  
+  height: calc(100vh - 100px);
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  
   background: radial-gradient(circle at center, rgba(78, 0, 150, 0.6), rgba(0, 20, 255, 0.2));
   border-radius: 30px;
+  margin: 0 3rem;
+  text-align: center;
   box-shadow: 0 0 60px rgba(0, 20, 255, 0.2);
-}
-
-/* Canvas styling for containment */
-#particle-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1; /* Behind text, in front of gradient */
+  position: relative; /* This is needed for the canvas inside */
+  overflow: hidden;
 }
 
 .hero-content {
   position: relative;
-  z-index: 2; /* Ensures text is on top of the canvas */
+  z-index: 2;
 }
 
 .hero-content h1 {
@@ -108,4 +95,14 @@ nav ul li a:hover::after {
   opacity: 0.7;
   max-width: 600px;
   margin: 0 auto;
+}
+
+/* This is the style rule your original JS uses for the canvas */
+#custom-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0; /* Behind the hero-content */
+  width: 100%;
+  height: 100%;
 }
