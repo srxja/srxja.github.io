@@ -1,4 +1,7 @@
-  /* Reset & Base */
+/* ==================================
+   GLOBAL STYLES & RESETS
+   ================================== */
+
 * {
   margin: 0;
   padding: 0;
@@ -9,12 +12,13 @@ body {
   font-family: 'Poppins', sans-serif;
   background: #0c0c0c;
   color: #ffffff;
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
+  /* Body is now scrollable */
 }
 
-/* Header */
+/* ==================================
+   HEADER (Same for all pages)
+   ================================== */
+
 header {
   display: flex;
   justify-content: space-between;
@@ -22,7 +26,7 @@ header {
   height: 100px; 
   padding: 0 3rem;
   position: relative;
-  z-index: 2;
+  z-index: 10;
 }
 
 .logo {
@@ -42,28 +46,25 @@ nav ul li a {
   font-weight: 400;
 }
 
-/* Main content area wrapper */
+/* ==================================
+   MAIN CONTENT AREA
+   ================================== */
+
 main {
-  height: calc(100vh - 100px);
-  padding: 2rem 3rem; 
+  /* Provides outer spacing for the hero box */
+  padding: 0 3rem 3rem 3rem; 
 }
 
-/* The hero box itself */
+/* Base styles for the .hero box on BOTH pages */
 .hero {
   width: 100%;
-  height: 100%;
   border-radius: 20px;
   box-shadow: 0 0 60px rgba(0, 20, 255, 0.2);
-  
   position: relative; 
   overflow: hidden; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
-/* The canvas for particles */
+/* The canvas that holds the particles */
 #custom-particles {
   position: absolute;
   top: 0;
@@ -71,80 +72,107 @@ main {
   width: 100%;
   height: 100%;
   z-index: 1;
-
-  /* --- YOUR EXACT BACKGROUND, AS REQUESTED --- */
-  background: radial-gradient(circle at center, rgba(78, 0, 150, 0.6), rgba(0, 20, 255, 0.2));
 }
 
-/* The text content on top */
+/* The text content container */
 .hero-content {
   position: relative;
   z-index: 2;
+  padding: 0 2rem; /* Basic horizontal padding */
 }
 
-.hero-content h1 {
+
+/* ==================================
+   HOMEPAGE SPECIFIC STYLES
+   ================================== */
+
+/* These styles apply ONLY when .hero does NOT have the .about-page class */
+.hero:not(.about-page) {
+  height: calc(100vh - 100px - 3rem); /* Header height + main bottom padding */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Homepage Background */
+.hero:not(.about-page) #custom-particles {
+  background: radial-gradient(circle at center, rgba(78, 0, 150, 0.6), rgba(0, 20, 255, 0.2));
+}
+
+/* Homepage Welcome Text */
+.hero:not(.about-page) h1 {
   font-size: 6rem;
   font-weight: 700;
   margin-bottom: 1rem;
 }
 
-.hero-content p {
+.hero:not(.about-page) p {
   font-size: 1.2rem;
   max-width: 600px;
   margin: 0 auto;
 }
 
-/* about */
 
-/* --- ABOUT PAGE STYLES --- */
+/* ==================================
+   ABOUT PAGE SPECIFIC STYLES
+   ================================== */
 
-/* Two-column layout for the About page */
-.about-page-layout {
-  display: flex;
-  align-items: flex-start; /* Aligns items to the top */
-  gap: 3rem;
-  max-width: 1200px;
-  padding: 0 4%;
-  text-align: left; /* Overrides the centered text from the homepage */
+/* These styles apply ONLY when .hero has the .about-page class */
+.about-page {
+  padding: 5rem 0; /* Lets the container grow with content */
+  text-align: center; /* Center all text */
 }
 
-.about-photo-column {
-  flex: 1; /* Takes up 1 part of the space */
-  /* You can add a placeholder style */
-  height: 250px;
-  width: 250px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 50%; /* Makes it a circle */
+/* About Page "Cosmic Indigo" Background */
+.about-page #custom-particles {
+  background: radial-gradient(circle, #19224D, #070B1B);
 }
 
-.about-text-column {
-  flex: 3; /* Takes up 3 parts of the space, making it wider */
+/* The "Planet" Graphic */
+.about-page::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  left: -150px;
+  width: 450px;
+  height: 450px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  z-index: 0;
 }
 
-.about-text-column h2 {
-  font-size: 2.5rem;
+/* Single-Column Content Styling for About Page */
+.about-page .hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.about-page h2 {
+  font-size: 3rem;
   font-weight: 700;
-  margin-top: 1rem;
+  margin-top: 3rem;
   margin-bottom: 1.5rem;
 }
 
-.about-text-column h2:first-child {
-  margin-top: 0;
-}
-
-.about-text-column p {
+.about-page p {
   font-size: 1.1rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 750px;
+  margin: 0 auto 1.5rem auto;
 }
 
-/* --- SKILL PILLS STYLES --- */
+/* ==================================
+   SKILLS & BUTTONS (For About Page)
+   ================================== */
+
 .skills-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.75rem;
-  margin-bottom: 2rem;
+  margin: 3rem 0;
 }
 
 .skill-pill {
@@ -152,16 +180,16 @@ main {
   background-color: rgba(255, 255, 255, 0.1);
   color: #ffffff;
   padding: 0.5rem 1rem;
-  border-radius: 999px; /* Pill shape */
+  border-radius: 999px;
   font-size: 0.9rem;
   font-weight: 500;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* --- BUTTON STYLES --- */
 .button-container {
   margin-top: 2rem;
   display: flex;
+  justify-content: center;
   gap: 1rem;
 }
 
@@ -175,10 +203,9 @@ main {
   text-align: center;
 }
 
-/* Primary Button Style */
 .btn {
   background-color: #ffffff;
-  color: #0c0c0c; /* Black text */
+  color: #0c0c0c;
 }
 
 .btn:hover {
@@ -186,7 +213,6 @@ main {
   opacity: 0.95;
 }
 
-/* Secondary "Ghost" Button Style */
 .btn.secondary {
   background-color: transparent;
   color: #ffffff;
