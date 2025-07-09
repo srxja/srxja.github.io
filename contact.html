@@ -9,7 +9,6 @@
 </head>
 
 <body>
-  <!-- The Header (with updated links) -->
   <header>
     <div class="logo">sruja</div>
     <nav>
@@ -25,15 +24,12 @@
   <main>
     <section class="hero contact-page">
       <canvas id="custom-particles"></canvas>
-      
-     <div class="hero-content">
-  <!-- This is the ONLY intro text container -->
-  <div id="intro-text-container">
-    <h2>Hit Me Up!</h2>
-    <p>Have an idea in mind or just want to talk? I'd love to hear from you.</p>
-  </div>
-
-  <!-- The form container -->
+      <div class="hero-content">
+        <div id="intro-text-container">
+          <h2>Hit Me Up!</h2>
+          <p>Have an idea in mind or just want to talk? I'd love to hear from you.</p>
+        </div>
+                 <!-- The form container -->
   <div id="contact-form-container">
     <form id="contact-form" method="POST" action="https://formspree.io/f/movwozby">
       <div class="form-group">
@@ -51,19 +47,18 @@
       <button type="submit" class="btn send-btn">Send Message</button>
     </form>
   </div>
-  
-  <!-- The confirmation message -->
-  <div id="confirmation-message" class="hidden">
-    <h2>Thank You.</h2>
-    <p>Your message has been sent. I'll be in touch soon.</p>
-  </div>
-</div>
+
+      
+        <div id="confirmation-message" class="hidden">
+          <h2>Thank You.</h2>
+          <p>Your message has been sent. I'll be in touch soon.</p>
+        </div>
+      </div>
     </section>
   </main>
 
   <script src="particles.js"></script>
-  <!-- We will create contact.js later for the animation -->
   <script src="contact.js"></script>
-  <!-- <script src="contact.js"></script> -->
 </body>
 </html>
+
