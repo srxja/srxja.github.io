@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0e0e0e;
+  color: #ffffff;
+  height: 100vh;
+  overflow: hidden;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 3rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+nav ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 400;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background-color: #7bdcb5;
+  transition: width 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #7bdcb5;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+.hero {
+  height: calc(100vh - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, rgba(78,0,150,0.6), rgba(0,20,255,0.2));
+  border-radius: 30px;
+  margin: 0 3rem;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(0, 20, 255, 0.2);
+  animation: float 10s ease-in-out infinite alternate;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  opacity: 0.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Optional glow animation */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+    box-shadow: 0 0 60px rgba(0, 20, 255, 0.2);
+  }
+  100% {
+    transform: translateY(-10px);
+    box-shadow: 0 0 80px rgba(0, 20, 255, 0.4);
+  }
+}
