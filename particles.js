@@ -49,14 +49,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Particle Class
   class Particle {
+      class Particle {
     constructor() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.baseSize = Math.random() * 2 + 1;
+      // --- CHANGE 1: Make stars smaller ---
+      this.baseSize = Math.random() * 1 + 0.5; // Stars will be between 0.5 and 1.5 pixels
       this.size = this.baseSize;
       this.speedX = (Math.random() - 0.5) * 0.3;
       this.speedY = (Math.random() - 0.5) * 0.3;
-      this.baseOpacity = Math.random() * 0.5 + 0.2; // Made them a bit brighter
+      // --- CHANGE 2: Make stars dimmer ---
+      this.baseOpacity = Math.random() * 0.3 + 0.1; // Brightness will be between 10% and 40%
       this.opacity = this.baseOpacity;
       this.time = Math.random() * 100;
     }
