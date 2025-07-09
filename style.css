@@ -327,3 +327,32 @@ main {
 .hidden {
   display: none;
 }
+
+/* ==================================
+   QUANTUM SEND ANIMATION STYLES
+   ================================== */
+
+/* The glowing effect for the form container */
+#contact-form-container.glowing {
+  animation: pulse-glow 1s infinite alternate;
+}
+
+@keyframes pulse-glow {
+  from {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1), 
+                0 0 20px rgba(255, 255, 255, 0.1);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 
+                0 0 40px rgba(180, 200, 255, 0.3);
+  }
+}
+
+/* Style for the form during the explosion phase */
+#contact-form-container.exploding {
+  /* Stop the glow, expand slightly, and hide */
+  animation: none;
+  transform: scale(1.05);
+  opacity: 0;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
