@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sruja</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -21,17 +21,19 @@
     </nav>
   </header>
 
-  <section class="hero">
-    <!-- The canvas for particles is now here -->
-    <canvas id="custom-particles"></canvas>
-    
-    <div class="hero-content">
-      <h1>Welcome.</h1>
-      <p>Explore the mind of a future tech magnate.</p>
-    </div>
-  </section>
+  <main>
+    <section class="hero">
+      <!-- The canvas MUST be inside the .hero container -->
+      <canvas id="custom-particles"></canvas>
+      
+      <div class="hero-content">
+        <h1>Welcome.</h1>
+        <p>Explore the mind of a future tech magnate.</p>
+      </div>
+    </section>
+  </main>
 
-  <!-- Custom Particles Script -->
+  <!-- The script MUST be at the end, before the closing </body> tag -->
   <script src="particle.js"></script>
 </body>
 </html>
