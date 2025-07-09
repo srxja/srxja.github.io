@@ -25,14 +25,14 @@ body {
   pointer-events: none;
 }
 
-/* NEW: Wrapper for all page content to fix layout and layering */
+/* Wrapper for all page content to fix layout and layering */
 .page-content {
   position: relative;
   z-index: 2;
-  /* This ensures your content is centered correctly as before */
+  height: 100vh;
+  padding: 0 3rem; /* Matches your original horizontal spacing */
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 /* Header */
@@ -40,15 +40,14 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 3rem;
-  /* position: relative and z-index: 2 are no longer needed here */
+  padding: 2rem 0; /* Vertical padding only, as parent handles horizontal */
+  flex-shrink: 0; /* Prevents header from shrinking */
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 1px;
-  color: #ffffff;
 }
 
 nav ul {
@@ -86,25 +85,16 @@ nav ul li a:hover::after {
 
 /* Hero Section */
 .hero {
-  /* Use flex-grow to take up remaining space */
-  flex-grow: 1; 
+  flex-grow: 1; /* Allows this section to fill the remaining space */
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  
   background: radial-gradient(circle at center, rgba(78, 0, 150, 0.6), rgba(0, 20, 255, 0.2));
   border-radius: 30px;
-  /* Adjusted margin to work within the flex container */
-  margin: 0 3rem 2rem 3rem;
-  text-align: center;
   box-shadow: 0 0 60px rgba(0, 20, 255, 0.2);
-  position: relative;
-  overflow: hidden;
-  /* z-index: 2 is no longer needed here */
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2; 
+  margin-bottom: 2rem; /* Matches your original bottom spacing */
 }
 
 .hero-content h1 {
