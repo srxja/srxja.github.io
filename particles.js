@@ -1,10 +1,8 @@
 // Wait until the entire HTML document is loaded and ready.
 document.addEventListener("DOMContentLoaded", function() {
 
-  // Find the canvas element in the HTML.
   const canvas = document.getElementById("custom-particles");
   
-  // If the script runs but can't find the canvas, this will stop it and show an error.
   if (!canvas) {
     console.error("Fatal Error: Canvas element with ID 'custom-particles' was not found. Check your HTML file.");
     return;
@@ -14,16 +12,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
   let width, height;
   let particles = [];
-  const particleCount = 150; // Increased count slightly for a fuller sky
+  const particleCount = 150;
 
-  // Mouse position object
   const mouse = {
     x: null,
     y: null,
-    radius: 150 // Area of effect around the cursor
+    radius: 150
   };
 
-  // Add event listeners
   canvas.addEventListener('mousemove', (e) => {
     const rect = canvas.getBoundingClientRect();
     mouse.x = e.clientX - rect.left;
@@ -35,37 +31,32 @@ document.addEventListener("DOMContentLoaded", function() {
     mouse.y = null;
   });
 
-  // This function sets the canvas size and creates the particles.
   function resizeCanvas() {
     width = canvas.width = canvas.offsetWidth;
     height = canvas.height = canvas.offsetHeight;
     
-    // Safety check: Don't create particles if the canvas has no size.
     if (width > 0 && height > 0) {
       createParticles();
     }
   }
   window.addEventListener("resize", resizeCanvas);
 
-  // Particle Class
+  // This is the complete and correct Particle class
   class Particle {
-      class Particle {
     constructor() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      // --- CHANGE 1: Make stars smaller ---
-      this.baseSize = Math.random() * 1 + 0.5; // Stars will be between 0.5 and 1.5 pixels
+      // These are the new, visible values for size and brightness
+      this.baseSize = Math.random() * 1.5 + 0.5; 
       this.size = this.baseSize;
       this.speedX = (Math.random() - 0.5) * 0.3;
       this.speedY = (Math.random() - 0.5) * 0.3;
-      // --- CHANGE 2: Make stars dimmer ---
-      this.baseOpacity = Math.random() * 0.3 + 0.1; // Brightness will be between 10% and 40%
+      this.baseOpacity = Math.random() * 0.4 + 0.2;
       this.opacity = this.baseOpacity;
       this.time = Math.random() * 100;
     }
 
     update() {
-      // Movement and edge wrapping
       this.x += this.speedX;
       this.y += this.speedY;
       if (this.x > width) this.x = 0;
@@ -73,20 +64,18 @@ document.addEventListener("DOMContentLoaded", function() {
       if (this.y > height) this.y = 0;
       if (this.y < 0) this.y = height;
       
-      // Pulsating effect
       this.time += 0.02;
       const pulseEffect = Math.sin(this.time) * 0.5;
       this.size = this.baseSize + pulseEffect;
       this.opacity = this.baseOpacity + (pulseEffect * 0.2);
 
-      // Mouse interaction
       if (mouse.x !== null) {
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         if (distance < mouse.radius) {
           const effect = 1 - (distance / mouse.radius);
-          this.size += effect * 5; // Stronger grow effect
+          this.size += effect * 5;
           this.opacity = Math.min(1, this.opacity + effect * 0.6);
         }
       }
@@ -100,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // Create the initial set of particles
   function createParticles() {
     particles = [];
     for (let i = 0; i < particleCount; i++) {
@@ -108,7 +96,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // The animation loop
   function animate() {
     ctx.clearRect(0, 0, width, height);
     for (const particle of particles) {
@@ -118,7 +105,6 @@ document.addEventListener("DOMContentLoaded", function() {
     requestAnimationFrame(animate);
   }
 
-  // --- Start Everything ---
-  resizeCanvas(); // Set the initial size and create particles
-  animate();      // Start the animation loop
+  resizeCanvas();
+  animate();
 });
