@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     requestAnimationFrame(animate);
   }
-
+ 
   resizeCanvas();
   animate();
 });
