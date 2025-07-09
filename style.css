@@ -209,3 +209,60 @@ main {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: #ffffff;
 }
+
+/* ==================================
+   INTERACTIVE SKILL SORTER STYLES
+   ================================== */
+
+.skill-filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap; /* Allows buttons to wrap on small screens */
+}
+
+.filter-btn {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.filter-btn.active {
+  background-color: #ffffff;
+  color: #0c0c0c;
+  border-color: #ffffff;
+}
+
+/* Styles for showing and hiding skill pills */
+.skill-pill {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: scale(1);
+  opacity: 1;
+}
+
+.skill-pill.hide {
+  transform: scale(0.5);
+  opacity: 0;
+  /* Use pointer-events none to avoid issues during transition */
+  pointer-events: none;
+  /* Set width and height to 0 so they don't take up space when hidden */
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  overflow: hidden; /* Hide text immediately */
+}
