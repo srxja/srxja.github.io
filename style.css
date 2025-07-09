@@ -47,27 +47,47 @@ nav ul li a:hover {
   color: #d1d1d1;
 }
 
-/* Hero Section */
+
+/* Hero Section*/
+/*
 .hero {
   height: calc(100vh - 120px);
   margin: 0 3rem;
   border-radius: 20px;
   position: relative;
   overflow: hidden;
+*/
 
   /* --- THIS IS THE KEY FIX FOR CENTERING --- */
   /* These properties will center the .hero-content div */
+/*
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center;   /* Center vertically */
-  text-align: center;      /* Center the text inside the div */
+  justify-content: center; 
+  align-items: center;   
+  text-align: center;     
+}
+*/
+
+/* Hero Section */
+.hero {
+  height: calc(100vh - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, rgba(78, 0, 150, 0.6), rgba(0, 20, 255, 0.2));
+  border-radius: 30px;
+  margin: 0 3rem;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(0, 20, 255, 0.2);
+  position: relative;
+  overflow: hidden;
 }
 
 
 
 
 /* Canvas for particles */
-#custom-particles {
+/*#custom-particles {
   position: absolute;
   top: 0;
   left: 0;
@@ -77,9 +97,18 @@ nav ul li a:hover {
 
   /* --- THIS IS THE KEY FIX FOR THE BACKGROUND --- */
   /* The gradient is now the background of the canvas itself */
-  background: radial-gradient(circle at center, rgba(78, 0, 150, 0.6), rgba(0, 20, 255, 0.2));
-}
+  /*background: radial-gradient(circle at center, rgba(78, 0, 150, 0.6), rgba(0, 20, 255, 0.2));
+}*/
 
+#custom-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
 /* Hero Content (the text) */
 .hero-content {
   position: relative;
