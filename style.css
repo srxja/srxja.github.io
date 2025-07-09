@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: #0c0c0c; /* Changed to a darker black for better contrast */
+  background: #0c0c0c;
   color: #ffffff;
   height: 100vh;
   overflow: hidden;
@@ -25,7 +25,7 @@ header {
 }
 
 .logo {
-  font-size: 1.8rem; /* Slightly larger like original image */
+  font-size: 1.8rem;
   font-weight: 700;
   color: #ffffff;
 }
@@ -49,36 +49,42 @@ nav ul li a:hover {
 
 /* Hero Section */
 .hero {
-  height: calc(100vh - 120px); /* Adjusted height slightly */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* UPDATED: New background gradient to match the image */
-  background: radial-gradient(circle, #4a216f, #1e0c33);
-  border-radius: 20px; /* Slightly softer radius */
+  height: calc(100vh - 120px);
   margin: 0 3rem;
-  text-align: center;
+  border-radius: 20px;
   position: relative;
   overflow: hidden;
+
+  /* --- THIS IS THE KEY FIX FOR CENTERING --- */
+  /* These properties will center the .hero-content div */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;   /* Center vertically */
+  text-align: center;      /* Center the text inside the div */
 }
 
+/* Canvas for particles */
 #custom-particles {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1; /* Place between background and content */
   width: 100%;
   height: 100%;
-  /* REMOVED: "pointer-events: none;" was blocking mouse interaction */
+  z-index: 1; /* Behind the content */
+
+  /* --- THIS IS THE KEY FIX FOR THE BACKGROUND --- */
+  /* The gradient is now the background of the canvas itself */
+  background: radial-gradient(circle, #4a216f, #1e0c33);
 }
 
+/* Hero Content (the text) */
 .hero-content {
   position: relative;
   z-index: 2; /* Ensure content is on top of particles */
 }
 
 .hero-content h1 {
-  font-size: 6rem; /* Larger font size like original image */
+  font-size: 6rem;
   font-weight: 700;
   margin-bottom: 1rem;
 }
