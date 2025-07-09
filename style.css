@@ -329,30 +329,36 @@ main {
 }
 
 /* ==================================
-   QUANTUM SEND ANIMATION STYLES
+   NEW & IMPROVED QUANTUM SEND ANIMATION
    ================================== */
 
-/* The glowing effect for the form container */
-#contact-form-container.glowing {
-  animation: pulse-glow 1s infinite alternate;
+/* Container for the intro text and the form */
+#intro-text-container,
+#contact-form-container {
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
-@keyframes pulse-glow {
-  from {
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1), 
-                0 0 20px rgba(255, 255, 255, 0.1);
-  }
-  to {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 
-                0 0 40px rgba(180, 200, 255, 0.3);
-  }
-}
-
-/* Style for the form during the explosion phase */
-#contact-form-container.exploding {
-  /* Stop the glow, expand slightly, and hide */
-  animation: none;
-  transform: scale(1.05);
+/* This class will be added by JS to hide elements */
+.fade-out {
   opacity: 0;
-  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+/* Confirmation Message Styling */
+#confirmation-message {
+  padding: 4rem 0;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out 0.5s, transform 0.5s ease-out 0.5s; /* Delay the fade-in */
+}
+
+#confirmation-message.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hidden {
+  display: none;
 }
