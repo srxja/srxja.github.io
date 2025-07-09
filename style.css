@@ -82,9 +82,13 @@ nav ul li a:hover::after {
   align-items: center;
   text-align: center;
   position: relative;
+  overflow: hidden;
+  background: linear-gradient(to right, #0f0c29, #302b63, #24243e); /* static gradient */
+  background-size: cover;
   border-radius: 30px;
   margin: 0 3rem;
   z-index: 1;
+  box-shadow: 0 0 80px rgba(91, 139, 255, 0.2);
 }
 
 .hero-content {
