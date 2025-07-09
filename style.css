@@ -45,12 +45,12 @@ main {
     padding: 0 3rem;
 }
 
-/* --- YOUR DESIRED HERO SECTION --- */
+/* --- HERO SECTION --- */
 .hero {
-  height: calc(100vh - 100px); /* Your height */
+  height: calc(100vh - 100px); /* THIS IS THE CORRECT HEIGHT */
   margin: 0 3rem;
-  border-radius: 30px; /* Your radius */
-  box-shadow: 0 0 60px rgba(0, 20, 255, 0.2); /* Your shadow */
+  border-radius: 30px;
+  box-shadow: 0 0 60px rgba(0, 20, 255, 0.2);
   
   /* Essential layout properties */
   position: relative; 
