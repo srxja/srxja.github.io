@@ -223,11 +223,11 @@ main {
 }
 
 .filter-btn {
-  background-color: transparent;
-  color: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.05); /* Add a very subtle background */
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.35rem 0.85rem; /* Make padding tighter */
+  border-radius: 6px; /* Use sharp, rectangular corners */
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
