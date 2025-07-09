@@ -31,33 +31,38 @@
         <p>Have an idea in mind or just want to talk? I'd love to hear from you.</p>
 
         <!-- The Contact Form Container -->
-        <div id="contact-form-container">
-          <form id="contact-form" method="POST" action="https://formspree.io/f/movwozby">
-            <div class="form-group">
-              <label for="name">Your Name</label>
-              <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-              <label for="email">Your Email</label>
-              <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-              <label for="message">Your Message</label>
-              <textarea id="message" name="message" rows="6" required></textarea>
-            </div>
-            <button type="submit" class="btn send-btn">
-              Send Message
-            </button>
-          </form>
-        </div>
-        
-        <!-- The Confirmation Message (hidden by default) -->
-        <div id="confirmation-message" class="hidden">
-          <h2>Thank You.</h2>
-          <p>Your message has been sent. I'll be in touch soon.</p>
-        </div>
+        <div class="hero-content">
+  <!-- NEW: Wrapper for the intro text -->
+  <div id="intro-text-container">
+    <h2>Hit Me Up!</h2>
+    <p>Have an idea in mind or just want to talk? I'd love to hear from you.</p>
+  </div>
 
+  <div id="contact-form-container">
+    <form id="contact-form" method="POST" action="https://formspree.io/f/YOUR_UNIQUE_CODE">
+      <!-- Your form fields are the same -->
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required>
       </div>
+      <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Your Message</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+      </div>
+      <button type="submit" class="btn send-btn">Send Message</button>
+    </form>
+  </div>
+  
+  <div id="confirmation-message" class="hidden">
+    <!-- NEW: Updated confirmation text -->
+    <h2>Thank You.</h2>
+    <p>Your message has been sent. I'll be in touch soon.</p>
+  </div>
+</div>
     </section>
   </main>
 
