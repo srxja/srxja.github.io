@@ -61,8 +61,6 @@ main {
   overflow: hidden; 
 }
 
-/* The canvas that holds the particles */
-/* The canvas for particles */
 #custom-particles {
   position: absolute;
   top: 0;
@@ -70,7 +68,6 @@ main {
   width: 100%;
   height: 100%;
   z-index: 1;
-  /* THIS IS NOW THE GLOBAL BACKGROUND FOR ALL PAGES */
   background: radial-gradient(circle, #19224D, #070B1B);
 }
 
@@ -80,12 +77,11 @@ main {
   padding: 0 2rem;
 }
 
-
 /* ==================================
    HOMEPAGE SPECIFIC STYLES
    ================================== */
-
-.hero:not(.about-page) {
+/* THIS IS THE CRITICAL FIX: It now ignores BOTH the about and contact pages */
+.hero:not(.about-page):not(.contact-page) {
   height: calc(100vh - 100px - 3rem);
   display: flex;
   justify-content: center;
@@ -93,55 +89,43 @@ main {
   text-align: center;
 }
 
-.hero:not(.about-page) h1 {
+.hero:not(.about-page):not(.contact-page) h1 {
   font-size: 6rem;
   font-weight: 700;
   margin-bottom: 1rem;
 }
 
-.hero:not(.about-page) p {
+.hero:not(.about-page):not(.contact-page) p {
   font-size: 1.2rem;
   max-width: 600px;
   margin: 0 auto;
 }
 
-
 /* ==================================
-   ABOUT PAGE SPECIFIC STYLES
+   ABOUT & CONTACT PAGE SHARED STYLES
    ================================== */
-
-.about-page {
-  padding: 5rem 0;
+.about-page,
+.contact-page {
+  padding: 5rem 0; /* Vertical padding for scrollable pages */
   text-align: center;
 }
 
-/* --- NEW: Style for your circular photo --- */
-.about-photo {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%; /* Makes it a circle */
-  object-fit: cover; /* Prevents image from stretching */
-  margin-bottom: 2rem;
-  border: 4px solid rgba(255, 255, 255, 0.1);
-}
-
-.about-page .hero-content {
+.about-page .hero-content,
+.contact-page .hero-content {
   max-width: 900px;
   margin: 0 auto;
 }
 
-.about-page h2 {
+.about-page h2,
+.contact-page h2 {
   font-size: 3rem;
   font-weight: 700;
   margin-top: 3rem;
   margin-bottom: 1.5rem;
 }
 
-.about-page h2:first-of-type {
-  margin-top: 0; /* Removes extra space above "About Me" */
-}
-
-.about-page p {
+.about-page p,
+.contact-page p {
   font-size: 1.1rem;
   line-height: 1.8;
   color: rgba(255, 255, 255, 0.8);
@@ -150,215 +134,55 @@ main {
 }
 
 /* ==================================
-   SKILLS & BUTTONS (For About Page)
+   ABOUT PAGE SPECIFIC ELEMENTS
    ================================== */
-
-.skills-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-  margin: 3rem 0;
-}
-
-.skill-pill {
-  display: inline-block;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.button-container {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 700;
-  transition: all 0.2s ease-in-out;
-  text-align: center;
-}
-
-.btn {
-  background-color: #ffffff;
-  color: #0c0c0c;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  opacity: 0.95;
-}
-
-.btn.secondary {
-  background-color: transparent;
-  color: #ffffff;
-  border: 2px solid rgba(255, 255, 255, 0.8);
-}
-
-.btn.secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: #ffffff;
-}
-
-/* ==================================
-   INTERACTIVE SKILL SORTER STYLES
-   ================================== */
-
-.skill-filters {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
+.about-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
   margin-bottom: 2rem;
-  flex-wrap: wrap; /* Allows buttons to wrap on small screens */
+  border: 4px solid rgba(255, 255, 255, 0.1);
 }
 
-.filter-btn {
-  background-color: rgba(255, 255, 255, 0.05); /* Add a very subtle background */
-  color: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 0.35rem 0.85rem; /* Make padding tighter */
-  border-radius: 6px; /* Use sharp, rectangular corners */
-  cursor: pointer;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.filter-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-}
-
-.filter-btn.active {
-  background-color: #ffffff;
-  color: #0c0c0c;
-  border-color: #ffffff;
-}
-
-/* Styles for showing and hiding skill pills */
-.skill-pill {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  transform: scale(1);
-  opacity: 1;
-}
-
-.skill-pill.hide {
-  transform: scale(0.5);
-  opacity: 0;
-  /* Use pointer-events none to avoid issues during transition */
-  pointer-events: none;
-  /* Set width and height to 0 so they don't take up space when hidden */
-  width: 0;
-  height: 0;
-  padding: 0;
-  margin: 0;
-  border: 0;
-  overflow: hidden; /* Hide text immediately */
+.about-page h2:first-of-type {
+  margin-top: 0;
 }
 
 /* ==================================
-   CONTACT PAGE STYLES
+   CONTACT PAGE SPECIFIC ELEMENTS
    ================================== */
-
 .contact-page .hero-content {
-  max-width: 700px; /* A bit narrower for a form */
+  max-width: 700px;
 }
 
-/* The form itself */
-#contact-form {
-  margin-top: 3rem;
-  text-align: left;
-}
+#contact-form { margin-top: 3rem; text-align: left; }
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); }
+.form-group input, .form-group textarea { width: 100%; padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); background-color: rgba(255, 255, 255, 0.05); color: #ffffff; font-family: 'Poppins', sans-serif; font-size: 1rem; transition: all 0.2s ease; }
+.form-group input:focus, .form-group textarea:focus { outline: none; border-color: #ffffff; background-color: rgba(255, 255, 255, 0.1); }
+.send-btn { width: 100%; padding: 1rem; font-size: 1.1rem; }
 
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
-  transition: all 0.2s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.send-btn {
-  width: 100%;
-  padding: 1rem;
-  font-size: 1.1rem;
-}
-
-/* Confirmation Message Styling */
-#confirmation-message {
-  padding: 4rem 0;
-  text-align: center;
-}
-
-.hidden {
-  display: none;
-}
+/* QUANTUM SEND ANIMATION */
+#intro-text-container, #contact-form-container { transition: opacity 0.5s ease-out, transform 0.5s ease-out; }
+.fade-out { opacity: 0; transform: scale(0.95); pointer-events: none; }
+#confirmation-message { padding: 4rem 0; text-align: center; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease-out 0.5s, transform 0.5s ease-out 0.5s; }
+#confirmation-message.visible { opacity: 1; transform: translateY(0); }
+.hidden { display: none; }
 
 /* ==================================
-   NEW & IMPROVED QUANTUM SEND ANIMATION
+   SKILL SORTER & BUTTONS
    ================================== */
-
-/* Container for the intro text and the form */
-#intro-text-container,
-#contact-form-container {
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-}
-
-/* This class will be added by JS to hide elements */
-.fade-out {
-  opacity: 0;
-  transform: scale(0.95);
-  pointer-events: none;
-}
-
-/* Confirmation Message Styling */
-#confirmation-message {
-  padding: 4rem 0;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease-out 0.5s, transform 0.5s ease-out 0.5s; /* Delay the fade-in */
-}
-
-#confirmation-message.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.hidden {
-  display: none;
-}
+.skill-filters { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.filter-btn { background-color: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(255, 255, 255, 0.15); padding: 0.35rem 0.85rem; border-radius: 6px; cursor: pointer; font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 500; transition: all 0.2s ease; }
+.filter-btn:hover { background-color: rgba(255, 255, 255, 0.1); color: #ffffff; }
+.filter-btn.active { background-color: #ffffff; color: #0c0c0c; border-color: #ffffff; }
+.skills-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin: 3rem 0; }
+.skill-pill { display: inline-block; background-color: rgba(255, 255, 255, 0.1); color: #ffffff; padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.9rem; font-weight: 500; border: 1px solid rgba(255, 255, 255, 0.2); transition: transform 0.3s ease, opacity 0.3s ease; transform: scale(1); opacity: 1; }
+.skill-pill.hide { transform: scale(0.5); opacity: 0; pointer-events: none; width: 0; height: 0; padding: 0; margin: 0; border: 0; overflow: hidden; }
+.button-container { margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; }
+.btn { display: inline-block; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 700; transition: all 0.2s ease-in-out; text-align: center; }
+.btn { background-color: #ffffff; color: #0c0c0c; }
+.btn:hover { transform: translateY(-2px); opacity: 0.95; }
+.btn.secondary { background-color: transparent; color: #ffffff; border: 2px solid rgba(255, 255, 255, 0.8); }
+.btn.secondary:hover { background-color: rgba(255, 255, 255, 0.1); border-color: #ffffff; }
