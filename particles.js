@@ -1,73 +1,75 @@
-const canvas = document.getElementById('particle-canvas');
-const ctx = canvas.getContext('2d');
+// This is your original script. It will log "particles running" to the console.
+console.log("particles running");
 
-const PARTICLE_COUNT = 70;
-const FOLLOW_SPEED = 0.08;
-const PULSE_SPEED = 0.0015;
-const PARTICLE_BASE_RADIUS = 2;
-const GLOW_BLUR = 10;
+const canvas = document.createElement("canvas");
+canvas.id = "custom-particles";
+document.querySelector(".hero").appendChild(canvas);
+
+const ctx = canvas.getContext("2d");
+let width, height;
+let particles = [];
+let mouse = { x: null, y: null };
+let active = false;
 
 function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  width = canvas.width = document.querySelector(".hero").clientWidth;
+  height = canvas.height = document.querySelector(".hero").clientHeight;
+  createParticles(120); // Re-create particles on resize to fill new space
 }
+
+window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
 
-let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+function createParticles(count) {
+  particles = [];
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: Math.random() * 1.5 + 0.5, // Made them slightly smaller and more varied
+      dx: (Math.random() - 0.5) * 0.3,
+      dy: (Math.random() - 0.5) * 0.3,
+      opacity: 0,
+    });
+  }
+}
 
-window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+function drawParticles() {
+  ctx.clearRect(0, 0, width, height);
+  particles.forEach((p) => {
+    // This logic makes the particle glow based on distance to the mouse.
+    // It DOES NOT make the particle follow.
+    const dist = Math.hypot(mouse.x - p.x, mouse.y - p.y);
+    p.opacity = active ? Math.max(0, 1 - dist / 150) : 0;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+    ctx.shadowColor = "rgba(255, 255, 255, 0.5)";
+    ctx.shadowBlur = 5;
+    ctx.fill();
+
+    // Move the particle slightly for a twinkling effect
+    p.x += p.dx;
+    p.y += p.dy;
+
+    // Wrap particles around the edges
+    if (p.x < 0) p.x = width;
+    if (p.x > width) p.x = 0;
+    if (p.y < 0) p.y = height;
+    if (p.y > height) p.y = 0;
+  });
+  requestAnimationFrame(drawParticles);
+}
+
+drawParticles();
+
+const heroElement = document.querySelector('.hero');
+
+heroElement.addEventListener("mouseenter", () => (active = true));
+heroElement.addEventListener("mouseleave", () => (active = false));
+heroElement.addEventListener("mousemove", (e) => {
+  const rect = heroElement.getBoundingClientRect();
+  mouse.x = e.clientX - rect.left;
+  mouse.y = e.clientY - rect.top;
 });
-
-class Particle {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = 0;
-        this.vy = 0;
-        this.radius = PARTICLE_BASE_RADIUS;
-        this.pulseOffset = Math.random() * Math.PI * 2;
-    }
-
-    update() {
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
-        this.vx += dx * FOLLOW_SPEED;
-        this.vy += dy * FOLLOW_SPEED;
-        this.vx *= 0.9;
-        this.vy *= 0.9;
-        this.x += this.vx;
-        this.y += this.vy;
-        
-        const pulse = Math.sin(Date.now() * PULSE_SPEED + this.pulseOffset);
-        this.radius = PARTICLE_BASE_RADIUS + pulse * 1.5;
-    }
-
-    draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.shadowColor = 'white';
-        ctx.shadowBlur = GLOW_BLUR;
-        ctx.fillStyle = 'white';
-        ctx.fill();
-        ctx.shadowBlur = 0;
-    }
-}
-
-const particles = [];
-for (let i = 0; i < PARTICLE_COUNT; i++) {
-    particles.push(new Particle());
-}
-
-function animate() {
-    ctx.fillStyle = 'rgba(14, 14, 14, 0.2)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    particles.forEach(p => { p.update(); p.draw(); });
-    
-    requestAnimationFrame(animate);
-}
-
-animate();
