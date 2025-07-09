@@ -80,8 +80,9 @@ main {
 /* ==================================
    HOMEPAGE SPECIFIC STYLES
    ================================== */
-/* THIS IS THE CRITICAL FIX: It now ignores BOTH the about and contact pages */
-.hero:not(.about-page):not(.contact-page) {
+
+/* This rule now uses the .homepage class for the fixed-height hero */
+.hero.homepage {
   height: calc(100vh - 100px - 3rem);
   display: flex;
   justify-content: center;
@@ -89,16 +90,34 @@ main {
   text-align: center;
 }
 
-.hero:not(.about-page):not(.contact-page) h1 {
+.hero.homepage h1 {
   font-size: 6rem;
   font-weight: 700;
   margin-bottom: 1rem;
 }
 
-.hero:not(.about-page):not(.contact-page) p {
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin: 0 auto;
+/* --- Typing Animation Styles --- */
+#typing-headline {
+  /* This pseudo-element creates the blinking cursor */
+  position: relative;
+  display: inline-block;
+}
+
+#typing-headline::after {
+  content: '|';
+  display: inline-block;
+  animation: blink 0.7s infinite;
+  font-weight: 300; /* Make the cursor thinner */
+}
+
+/* When typing is done, make the cursor solid */
+#typing-headline.typing-done::after {
+  animation: none;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* ==================================
