@@ -1,3 +1,4 @@
+console.log("particles running");
 window.onload = function () {
   const canvas = document.createElement("canvas");
   canvas.id = "custom-particles";
