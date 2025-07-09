@@ -63,6 +63,9 @@ nav ul li a:hover {
   text-align: center;      /* Center the text inside the div */
 }
 
+
+
+
 /* Canvas for particles */
 #custom-particles {
   position: absolute;
@@ -74,7 +77,7 @@ nav ul li a:hover {
 
   /* --- THIS IS THE KEY FIX FOR THE BACKGROUND --- */
   /* The gradient is now the background of the canvas itself */
-  background: radial-gradient(circle, #4a216f, #1e0c33);
+  background: radial-gradient(circle at center, rgba(78, 0, 150, 0.6), rgba(0, 20, 255, 0.2));
 }
 
 /* Hero Content (the text) */
