@@ -1,82 +1,76 @@
-// A check to see if the correct script is running.
-console.log("NEW cursor-following particle script loaded!");
-
-// Get the canvas and its 2D rendering context
+// --- Get the Canvas and its Parent (the .hero box) ---
 const canvas = document.getElementById('particle-canvas');
 const ctx = canvas.getContext('2d');
+const heroElement = document.querySelector('.hero');
 
-// --- CONFIGURATION ---
-const PARTICLE_COUNT = 50; 
-const FOLLOW_SPEED = 0.08;
-const PULSE_SPEED = 0.002;
-const PARTICLE_BASE_RADIUS = 1.5;
-const GLOW_BLUR = 8;
-const SPAWN_RADIUS = 40; 
+// --- Configuration for the "Swarm" effect ---
+const PARTICLE_COUNT = 150;      // More dots for a dense swarm
+const FOLLOW_SPEED = 0.03;       // Slower for a smoother, trailing flow
+const DAMPING = 0.96;            // Higher value = more "floaty" and less friction
+const PARTICLE_BASE_RADIUS = 1;  // Tinier dots
+const GLOW_BLUR = 5;             // Softer glow for tiny dots
+const TRAIL_ALPHA = 0.08;        // Lower alpha = longer, more visible trails
 
 let particles = [];
 let animationFrameId;
+let mouse = { x: null, y: null };
+let canvasRect = heroElement.getBoundingClientRect();
 
-// Set canvas dimensions to full screen
+// --- Main Functions ---
+
 function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvasRect = heroElement.getBoundingClientRect();
+    canvas.width = canvasRect.width;
+    canvas.height = canvasRect.height;
 }
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
 
-// Store mouse position
-let mouse = {
-    x: window.innerWidth / 2,
-    y: window.innerHeight / 2,
-};
-
-window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-});
-
+// Particle class for our dots
 class Particle {
     constructor(x, y) {
-        this.x = x + (Math.random() - 0.5) * SPAWN_RADIUS;
-        this.y = y + (Math.random() - 0.5) * SPAWN_RADIUS;
-        this.vx = 0;
-        this.vy = 0;
-        this.radius = PARTICLE_BASE_RADIUS;
-        this.pulseOffset = Math.random() * Math.PI * 2;
+        this.x = x;
+        this.y = y;
+        this.vx = (Math.random() - 0.5) * 2; // Initial small random velocity
+        this.vy = (Math.random() - 0.5) * 2;
+        this.radius = PARTICLE_BASE_RADIUS + Math.random() * 1.5;
         this.opacity = 0;
     }
 
     update() {
-        if (this.opacity < 1) {
-            this.opacity = Math.min(1, this.opacity + 0.03);
-        }
+        // Fade in
+        if (this.opacity < 1) this.opacity = Math.min(1, this.opacity + 0.02);
+
+        // Move towards the mouse
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
         this.vx += dx * FOLLOW_SPEED;
         this.vy += dy * FOLLOW_SPEED;
-        this.vx *= 0.9;
-        this.vy *= 0.9;
+        
+        // Apply damping (friction)
+        this.vx *= DAMPING;
+        this.vy *= DAMPING;
+        
         this.x += this.vx;
         this.y += this.vy;
-        const pulse = Math.sin(Date.now() * PULSE_SPEED + this.pulseOffset);
-        this.radius = PARTICLE_BASE_RADIUS + pulse * 1.2;
     }
 
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.shadowColor = `rgba(255, 255, 255, ${this.opacity})`;
-        ctx.shadowBlur = GLOW_BLUR;
         ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        ctx.shadowColor = `rgba(255, 255, 255, ${this.opacity * 0.8})`;
+        ctx.shadowBlur = GLOW_BLUR;
         ctx.fill();
-        ctx.shadowBlur = 0;
     }
 }
 
+// The animation loop
 function animate() {
-    ctx.fillStyle = 'rgba(14, 14, 14, 0.2)';
+    // This creates the beautiful trail effect
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = `rgba(14, 14, 14, ${TRAIL_ALPHA})`;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
+    ctx.globalCompositeOperation = 'lighter'; // Makes glows add up
+
     particles.forEach(p => {
         p.update();
         p.draw();
@@ -85,16 +79,47 @@ function animate() {
     animationFrameId = requestAnimationFrame(animate);
 }
 
-function init(e) {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+// --- Event Listeners & Initialization ---
 
+// Start everything when the mouse enters the hero box
+heroElement.addEventListener('mouseenter', (e) => {
+    // Get initial mouse position relative to the canvas
+    mouse.x = e.clientX - canvasRect.left;
+    mouse.y = e.clientY - canvasRect.top;
+
+    // Create the swarm at the entry point
+    particles = [];
     for (let i = 0; i < PARTICLE_COUNT; i++) {
         particles.push(new Particle(mouse.x, mouse.y));
     }
     
-    animate();
-    window.removeEventListener('mousemove', init);
-}
+    // Start the animation if it's not already running
+    if (!animationFrameId) {
+        animate();
+    }
+});
 
-window.addEventListener('mousemove', init);
+// Update mouse position as it moves inside the box
+heroElement.addEventListener('mousemove', (e) => {
+    // Check if the animation has started
+    if (particles.length > 0) {
+        mouse.x = e.clientX - canvasRect.left;
+        mouse.y = e.clientY - canvasRect.top;
+    }
+});
+
+// Fade out and stop animation when the mouse leaves
+heroElement.addEventListener('mouseleave', () => {
+    // This is an optional but elegant fade-out effect.
+    // For now, we'll just stop the animation and clear for simplicity.
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles = [];
+});
+
+// Resize the canvas when the window size changes
+window.addEventListener('resize', resizeCanvas);
+
+// Initial setup
+resizeCanvas();
