@@ -266,3 +266,64 @@ main {
   border: 0;
   overflow: hidden; /* Hide text immediately */
 }
+
+/* ==================================
+   CONTACT PAGE STYLES
+   ================================== */
+
+.contact-page .hero-content {
+  max-width: 700px; /* A bit narrower for a form */
+}
+
+/* The form itself */
+#contact-form {
+  margin-top: 3rem;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.send-btn {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+/* Confirmation Message Styling */
+#confirmation-message {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
