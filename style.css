@@ -93,3 +93,107 @@ main {
   max-width: 600px;
   margin: 0 auto;
 }
+
+/* about */
+
+/* --- ABOUT PAGE STYLES --- */
+
+/* Two-column layout for the About page */
+.about-page-layout {
+  display: flex;
+  align-items: flex-start; /* Aligns items to the top */
+  gap: 3rem;
+  max-width: 1200px;
+  padding: 0 4%;
+  text-align: left; /* Overrides the centered text from the homepage */
+}
+
+.about-photo-column {
+  flex: 1; /* Takes up 1 part of the space */
+  /* You can add a placeholder style */
+  height: 250px;
+  width: 250px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 50%; /* Makes it a circle */
+}
+
+.about-text-column {
+  flex: 3; /* Takes up 3 parts of the space, making it wider */
+}
+
+.about-text-column h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-text-column h2:first-child {
+  margin-top: 0;
+}
+
+.about-text-column p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 1.5rem;
+}
+
+/* --- SKILL PILLS STYLES --- */
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.skill-pill {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 999px; /* Pill shape */
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- BUTTON STYLES --- */
+.button-container {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+}
+
+/* Primary Button Style */
+.btn {
+  background-color: #ffffff;
+  color: #0c0c0c; /* Black text */
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+/* Secondary "Ghost" Button Style */
+.btn.secondary {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.btn.secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+}
