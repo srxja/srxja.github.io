@@ -45,7 +45,6 @@ function drawParticles() {
     p.x += p.dx;
     p.y += p.dy;
 
-    // Wrap around
     if (p.x < 0) p.x = width;
     if (p.x > width) p.x = 0;
     if (p.y < 0) p.y = height;
