@@ -71,14 +71,15 @@ nav ul li a:hover::after {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+  background: radial-gradient(circle at center, rgba(78, 0, 150, 0.6), rgba(0, 20, 255, 0.2));
   border-radius: 30px;
   margin: 0 3rem;
-  z-index: 1;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(0, 20, 255, 0.2);
+  position: relative;
+  overflow: hidden;
 }
+
 
 
 .hero-content {
