@@ -1,67 +1,120 @@
-console.log("particles running");
-  const canvas = document.createElement("canvas");
-  canvas.id = "custom-particles";
-  document.querySelector(".hero").appendChild(canvas);
+// Get the canvas and its 2D rendering context
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
 
-  const ctx = canvas.getContext("2d");
-  let width, height;
-  let particles = [];
-  let mouse = { x: null, y: null };
-  let active = false;
+// --- CONFIGURATION ---
+const PARTICLE_COUNT = 70; // Number of dots
+const FOLLOW_SPEED = 0.08; // How fast particles follow the cursor (0 to 1)
+const PULSE_SPEED = 0.0015; // Speed of the pulsing effect
+const PARTICLE_BASE_RADIUS = 2; // Base size of the dots
+const GLOW_BLUR = 10; // How much the dots glow
 
-  function resizeCanvas() {
-    width = canvas.width = document.querySelector(".hero").clientWidth;
-    height = canvas.height = document.querySelector(".hero").clientHeight;
-  }
+// Set canvas dimensions to full screen
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
-  window.addEventListener("resize", resizeCanvas);
-  resizeCanvas();
+// Store mouse position
+let mouse = {
+    x: canvas.width / 2,
+    y: canvas.height / 2,
+    isMoving: false
+};
 
-  function createParticles(count) {
-    particles = [];
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 2 + 1,
-        dx: (Math.random() - 0.5) * 0.5,
-        dy: (Math.random() - 0.5) * 0.5,
-        opacity: 0,
-      });
+// Track mouse movement
+let moveTimeout;
+window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    mouse.isMoving = true;
+    clearTimeout(moveTimeout);
+    moveTimeout = setTimeout(() => {
+        mouse.isMoving = false;
+    }, 100); // Consider mouse static after 100ms of no movement
+});
+
+// Particle class to define our dots
+class Particle {
+    constructor() {
+        // Start at a random position
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        
+        // Velocity for smooth movement
+        this.vx = 0;
+        this.vy = 0;
+        
+        // Radius and a random offset for the pulse animation
+        this.radius = PARTICLE_BASE_RADIUS;
+        this.pulseOffset = Math.random() * Math.PI * 2;
     }
-  }
 
-  function drawParticles() {
-    ctx.clearRect(0, 0, width, height);
-    particles.forEach((p) => {
-      const dist = Math.hypot(mouse.x - p.x, mouse.y - p.y);
-      p.opacity = active ? Math.max(0.2, 1 - dist / 150) : 0;
+    // Update particle's position and appearance
+    update() {
+        // Calculate the vector from the particle to the mouse
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        
+        // Accelerate towards the mouse
+        this.vx += dx * FOLLOW_SPEED;
+        this.vy += dy * FOLLOW_SPEED;
+        
+        // Apply friction to slow down the particle (damping)
+        this.vx *= 0.9;
+        this.vy *= 0.9;
+        
+        // Update position
+        this.x += this.vx;
+        this.y += this.vy;
+        
+        // The pulsing effect using a sine wave
+        const pulse = Math.sin(Date.now() * PULSE_SPEED + this.pulseOffset);
+        this.radius = PARTICLE_BASE_RADIUS + pulse * 1.5; // Pulse size variation
+    }
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
-      ctx.shadowColor = "#ffffff";
-      ctx.shadowBlur = 5;
-      ctx.fill();
+    // Draw the particle on the canvas
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        
+        // Set the glow effect
+        ctx.shadowColor = 'white';
+        ctx.shadowBlur = GLOW_BLUR;
+        
+        // Set the color and fill the circle
+        ctx.fillStyle = 'white';
+        ctx.fill();
+        
+        // Reset shadow for other drawings if any
+        ctx.shadowBlur = 0; 
+    }
+}
 
-      p.x += p.dx;
-      p.y += p.dy;
+// Create an array to hold all particles
+const particles = [];
+for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push(new Particle());
+}
 
-      if (p.x < 0) p.x = width;
-      if (p.x > width) p.x = 0;
-      if (p.y < 0) p.y = height;
-      if (p.y > height) p.y = 0;
+// The main animation loop
+function animate() {
+    // Clear the canvas with a semi-transparent black for a trailing effect
+    // Matched to your site's #0e0e0e background (rgb(14, 14, 14))
+    ctx.fillStyle = 'rgba(14, 14, 14, 0.2)'; 
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Update and draw each particle
+    particles.forEach(p => {
+        p.update();
+        p.draw();
     });
-    requestAnimationFrame(drawParticles);
-  }
+    
+    // Request the next frame
+    requestAnimationFrame(animate);
+}
 
-  createParticles(80);
-  drawParticles();
-
-  canvas.addEventListener("mouseenter", () => (active = true));
-  canvas.addEventListener("mouseleave", () => (active = false));
-  canvas.addEventListener("mousemove", (e) => {
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-  });
+// Start the animation
+animate();
