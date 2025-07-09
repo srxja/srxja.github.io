@@ -1,31 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Select all filter buttons and skill pills
     const filterButtons = document.querySelectorAll('.filter-btn');
     const skillPills = document.querySelectorAll('.skill-pill');
 
-    // Add click event listener to each button
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Get the filter category from the button's data-filter attribute
             const filter = button.dataset.filter;
+            // Check if the button clicked is already the active one
+            const isAlreadyActive = button.classList.contains('active');
 
-            // --- Update Active Button State ---
-            // Remove 'active' class from all buttons
+            // First, remove the 'active' class from all buttons
             filterButtons.forEach(btn => btn.classList.remove('active'));
-            // Add 'active' class to the clicked button
-            button.classList.add('active');
 
-            // --- Filter the Skill Pills ---
-            skillPills.forEach(pill => {
-                const category = pill.dataset.category;
-
-                // If the filter is 'all' or the pill's category matches the filter
-                if (filter === 'all' || category === filter) {
-                    pill.classList.remove('hide'); // Show the pill
-                } else {
-                    pill.classList.add('hide'); // Hide the pill
-                }
-            });
+            // --- THE NEW TOGGLE LOGIC ---
+            if (isAlreadyActive) {
+                // If it was already active, we are toggling it OFF.
+                // Show all pills.
+                skillPills.forEach(pill => pill.classList.remove('hide'));
+            } else {
+                // If it was not active, we are toggling it ON.
+                // Add 'active' class to the clicked button.
+                button.classList.add('active');
+                
+                // And filter the pills.
+                skillPills.forEach(pill => {
+                    const category = pill.dataset.category;
+                    if (category === filter) {
+                        pill.classList.remove('hide'); // Show this pill
+                    } else {
+                        pill.classList.add('hide'); // Hide others
+                    }
+                });
+            }
         });
     });
 });
