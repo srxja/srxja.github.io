@@ -26,21 +26,16 @@
     <section class="hero contact-page">
       <canvas id="custom-particles"></canvas>
       
-      <div class="hero-content">
-        <h2>Hit Me Up!</h2>
-        <p>Have an idea in mind or just want to talk? I'd love to hear from you.</p>
-
-        <!-- The Contact Form Container -->
-        <div class="hero-content">
-  <!-- NEW: Wrapper for the intro text -->
+     <div class="hero-content">
+  <!-- This is the ONLY intro text container -->
   <div id="intro-text-container">
     <h2>Hit Me Up!</h2>
     <p>Have an idea in mind or just want to talk? I'd love to hear from you.</p>
   </div>
 
+  <!-- The form container -->
   <div id="contact-form-container">
-    <form id="contact-form" method="POST" action="https://formspree.io/f/movwozby">
-      <!-- Your form fields are the same -->
+    <form id="contact-form" method="POST" action="https://formspree.io/f/YOUR_UNIQUE_CODE">
       <div class="form-group">
         <label for="name">Your Name</label>
         <input type="text" id="name" name="name" required>
@@ -57,8 +52,8 @@
     </form>
   </div>
   
+  <!-- The confirmation message -->
   <div id="confirmation-message" class="hidden">
-    <!-- NEW: Updated confirmation text -->
     <h2>Thank You.</h2>
     <p>Your message has been sent. I'll be in touch soon.</p>
   </div>
