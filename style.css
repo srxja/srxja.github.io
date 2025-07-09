@@ -1,56 +1,45 @@
 /* ==================================
-   GLOBAL STYLES & RESETS
+   GLOBAL & LAYOUT
    ================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+html, body {
+  height: 100%; /* Make sure html and body can be full height */
 }
 
 body {
   font-family: 'Poppins', sans-serif;
   background: #0c0c0c;
   color: #ffffff;
+  display: flex; /* Use Flexbox for layout */
+  flex-direction: column; /* Stack header and main vertically */
 }
 
 /* ==================================
-   HEADER (Same for all pages)
+   HEADER
    ================================== */
-
 header {
+  height: 100px; 
+  padding: 0 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100px; 
-  padding: 0 3rem;
+  flex-shrink: 0; /* Prevent header from shrinking */
   position: relative;
   z-index: 10;
 }
-
-.logo {
-  font-size: 1.8rem;
-  font-weight: 700;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-}
-
-nav ul li a {
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 400;
-}
+/* ... other header styles like .logo, nav ... */
+.logo { font-size: 1.8rem; font-weight: 700; }
+nav ul { list-style: none; display: flex; gap: 2rem; }
+nav ul li a { color: #ffffff; text-decoration: none; font-weight: 400; }
 
 /* ==================================
    MAIN CONTENT AREA
    ================================== */
-
 main {
+  flex-grow: 1; /* This makes main fill all remaining vertical space */
   padding: 0 3rem 3rem 3rem; 
+  overflow-y: auto; /* Allow main to scroll if content is too long */
 }
 
 .hero {
@@ -80,91 +69,32 @@ main {
 /* ==================================
    HOMEPAGE SPECIFIC STYLES
    ================================== */
-/* THIS IS THE CRITICAL FIX: It now correctly targets the homepage ONLY */
 .hero.homepage {
-  height: calc(100vh - 100px - 3rem);
+  height: 100%; /* Fill the entire 'main' area */
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
-
-.hero.homepage h1 {
-  font-size: 6rem;
-  font-weight: 700;
-}
-
-#typing-headline {
-  position: relative;
-  display: inline-block;
-}
-
-#typing-headline::after {
-  content: '|';
-  display: inline-block;
-  animation: blink 0.7s infinite;
-  font-weight: 300;
-}
-
-#typing-headline.typing-done::after {
-  animation: none;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
+.hero.homepage h1 { font-size: 6rem; font-weight: 700; }
+#typing-headline { position: relative; display: inline-block; }
+#typing-headline::after { content: '|'; display: inline-block; animation: blink 0.7s infinite; font-weight: 300; }
+#typing-headline.typing-done::after { animation: none; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
 /* ==================================
-   ABOUT & CONTACT PAGE SHARED STYLES
+   ABOUT & CONTACT PAGES
    ================================== */
-.about-page,
-.contact-page {
+.about-page, .contact-page {
   padding: 5rem 0;
   text-align: center;
 }
-
-.about-page .hero-content,
-.contact-page .hero-content {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.about-page h2,
-.contact-page h2 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-top: 3rem;
-  margin-bottom: 1.5rem;
-}
-
-.about-page p,
-.contact-page p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.8);
-  max-width: 750px;
-  margin: 0 auto 1.5rem auto;
-}
-
-/* ==================================
-   COMPONENT STYLES (About, Contact, etc.)
-   ================================== */
-
-/* ABOUT PAGE: Photo */
-.about-photo {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 2rem;
-  border: 4px solid rgba(255, 255, 255, 0.1);
-}
-.about-page h2:first-of-type {
-  margin-top: 0;
-}
-
-/* CONTACT PAGE: Form */
+.about-page .hero-content, .contact-page .hero-content { max-width: 900px; margin: 0 auto; }
+.about-page h2, .contact-page h2 { font-size: 3rem; font-weight: 700; margin-top: 3rem; margin-bottom: 1.5rem; }
+.about-page p, .contact-page p { font-size: 1.1rem; line-height: 1.8; color: rgba(255, 255, 255, 0.8); max-width: 750px; margin: 0 auto 1.5rem auto; }
+/* ... ALL OTHER STYLES (photo, form, skills, buttons) go here ... */
+.about-photo { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; margin-bottom: 2rem; border: 4px solid rgba(255, 255, 255, 0.1); }
+.about-page h2:first-of-type { margin-top: 0; }
 .contact-page .hero-content { max-width: 700px; }
 #contact-form { margin-top: 3rem; text-align: left; }
 .form-group { margin-bottom: 1.5rem; }
@@ -177,8 +107,6 @@ main {
 #confirmation-message { padding: 4rem 0; text-align: center; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease-out 0.5s, transform 0.5s ease-out 0.5s; }
 #confirmation-message.visible { opacity: 1; transform: translateY(0); }
 .hidden { display: none; }
-
-/* SKILL SORTER & BUTTONS */
 .skill-filters { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
 .filter-btn { background-color: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(255, 255, 255, 0.15); padding: 0.35rem 0.85rem; border-radius: 6px; cursor: pointer; font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 500; transition: all 0.2s ease; }
 .filter-btn:hover { background-color: rgba(255, 255, 255, 0.1); color: #ffffff; }
