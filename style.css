@@ -80,8 +80,7 @@ main {
 /* ==================================
    HOMEPAGE SPECIFIC STYLES
    ================================== */
-
-/* This rule now uses the .homepage class for the fixed-height hero */
+/* THIS IS THE CRITICAL FIX: It now correctly targets the homepage ONLY */
 .hero.homepage {
   height: calc(100vh - 100px - 3rem);
   display: flex;
@@ -93,12 +92,9 @@ main {
 .hero.homepage h1 {
   font-size: 6rem;
   font-weight: 700;
-  margin-bottom: 1rem;
 }
 
-/* --- Typing Animation Styles --- */
 #typing-headline {
-  /* This pseudo-element creates the blinking cursor */
   position: relative;
   display: inline-block;
 }
@@ -107,10 +103,9 @@ main {
   content: '|';
   display: inline-block;
   animation: blink 0.7s infinite;
-  font-weight: 300; /* Make the cursor thinner */
+  font-weight: 300;
 }
 
-/* When typing is done, make the cursor solid */
 #typing-headline.typing-done::after {
   animation: none;
 }
@@ -125,7 +120,7 @@ main {
    ================================== */
 .about-page,
 .contact-page {
-  padding: 5rem 0; /* Vertical padding for scrollable pages */
+  padding: 5rem 0;
   text-align: center;
 }
 
@@ -153,8 +148,10 @@ main {
 }
 
 /* ==================================
-   ABOUT PAGE SPECIFIC ELEMENTS
+   COMPONENT STYLES (About, Contact, etc.)
    ================================== */
+
+/* ABOUT PAGE: Photo */
 .about-photo {
   width: 180px;
   height: 180px;
@@ -163,35 +160,25 @@ main {
   margin-bottom: 2rem;
   border: 4px solid rgba(255, 255, 255, 0.1);
 }
-
 .about-page h2:first-of-type {
   margin-top: 0;
 }
 
-/* ==================================
-   CONTACT PAGE SPECIFIC ELEMENTS
-   ================================== */
-.contact-page .hero-content {
-  max-width: 700px;
-}
-
+/* CONTACT PAGE: Form */
+.contact-page .hero-content { max-width: 700px; }
 #contact-form { margin-top: 3rem; text-align: left; }
 .form-group { margin-bottom: 1.5rem; }
 .form-group label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); }
 .form-group input, .form-group textarea { width: 100%; padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); background-color: rgba(255, 255, 255, 0.05); color: #ffffff; font-family: 'Poppins', sans-serif; font-size: 1rem; transition: all 0.2s ease; }
 .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #ffffff; background-color: rgba(255, 255, 255, 0.1); }
 .send-btn { width: 100%; padding: 1rem; font-size: 1.1rem; }
-
-/* QUANTUM SEND ANIMATION */
 #intro-text-container, #contact-form-container { transition: opacity 0.5s ease-out, transform 0.5s ease-out; }
 .fade-out { opacity: 0; transform: scale(0.95); pointer-events: none; }
 #confirmation-message { padding: 4rem 0; text-align: center; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease-out 0.5s, transform 0.5s ease-out 0.5s; }
 #confirmation-message.visible { opacity: 1; transform: translateY(0); }
 .hidden { display: none; }
 
-/* ==================================
-   SKILL SORTER & BUTTONS
-   ================================== */
+/* SKILL SORTER & BUTTONS */
 .skill-filters { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
 .filter-btn { background-color: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(255, 255, 255, 0.15); padding: 0.35rem 0.85rem; border-radius: 6px; cursor: pointer; font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 500; transition: all 0.2s ease; }
 .filter-btn:hover { background-color: rgba(255, 255, 255, 0.1); color: #ffffff; }
