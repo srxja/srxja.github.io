@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
   const canvas = document.getElementById("custom-particles");
+  // If the script runs but can't find the canvas, this will tell us in the console.
   if (!canvas) {
-    console.error("Canvas element with ID 'custom-particles' not found.");
+    console.error("Fatal Error: Canvas element with ID 'custom-particles' was not found in the HTML.");
     return;
   }
   const ctx = canvas.getContext("2d");
@@ -38,13 +39,11 @@ document.addEventListener("DOMContentLoaded", function() {
     constructor() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      // --- CHANGE 1: Increased base size for better visibility ---
-      this.baseSize = Math.random() * 2 + 1; // Was 1.5 + 1
+      this.baseSize = Math.random() * 2 + 1;
       this.size = this.baseSize;
       this.speedX = (Math.random() - 0.5) * 0.3;
       this.speedY = (Math.random() - 0.5) * 0.3;
-      // --- CHANGE 2: Increased base opacity for better visibility ---
-      this.baseOpacity = Math.random() * 0.4 + 0.3; // Was 0.4 + 0.1
+      this.baseOpacity = Math.random() * 0.4 + 0.3;
       this.opacity = this.baseOpacity;
       this.time = Math.random() * 100;
     }
@@ -62,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function() {
       const pulseEffect = Math.sin(this.time) * 0.5;
       this.size = this.baseSize + pulseEffect;
       
-      // Reset opacity before calculating mouse effect
       this.opacity = this.baseOpacity + (pulseEffect * 0.2);
 
       if (mouse.x !== null) {
