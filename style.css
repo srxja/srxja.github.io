@@ -14,6 +14,18 @@ body {
   position: relative;
 }
 
+/* --- ADD THIS NEW RULE FOR THE CANVAS --- */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Set z-index to 1 to be behind content (z-index: 2) but in front of body background */
+  z-index: 1;
+  pointer-events: none; /* Allows clicks to go "through" the canvas */
+}
+
 
 /* Header */
 header {
@@ -22,7 +34,7 @@ header {
   align-items: center;
   padding: 2rem 3rem;
   position: relative;
-  z-index: 2;
+  z-index: 2; /* Stays on top of the canvas */
 }
 
 .logo {
@@ -78,13 +90,12 @@ nav ul li a:hover::after {
   box-shadow: 0 0 60px rgba(0, 20, 255, 0.2);
   position: relative;
   overflow: hidden;
+  z-index: 2; /* Ensure hero is also on top of the canvas */
 }
-
-
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 2; /* This is good, it keeps text on top */
 }
 
 .hero-content h1 {
@@ -100,17 +111,4 @@ nav ul li a:hover::after {
   margin: 0 auto;
 }
 
-#custom-particles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-}
-
+/* REMOVED the old #custom-particles rule as it's no longer needed. */
