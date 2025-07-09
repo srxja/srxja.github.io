@@ -1,5 +1,4 @@
 console.log("particles running");
-window.onload = function () {
   const canvas = document.createElement("canvas");
   canvas.id = "custom-particles";
   document.querySelector(".hero").appendChild(canvas);
@@ -66,4 +65,3 @@ window.onload = function () {
     mouse.x = e.clientX - rect.left;
     mouse.y = e.clientY - rect.top;
   });
-};
