@@ -9,7 +9,6 @@
 </head>
 
 <body>
-  <!-- The Header (ensure links are correct) -->
   <header>
     <div class="logo">sruja</div>
     <nav>
@@ -23,61 +22,63 @@
   </header>
 
   <main>
-    <!-- The hero container now holds all the scrollable content -->
     <section class="hero about-page">
       <canvas id="custom-particles"></canvas>
       
-      <!-- A single content container, centered -->
       <div class="hero-content">
+        <!-- Your Photo -->
         <img src="sruja-photo.png" alt="A photo of Sruja" class="about-photo">
+
+        <!-- Your "About Me" Text -->
         <h2>About Me</h2>
         <p>Hey, I'm Sruja — I write code, break things, fix them, and occasionally build cool stuff on purpose. I Google 90% of my bugs, make ChatGPT question its life choices and crash, and still manage to get things done (most of the time). It’s not always glamorous, but hey — progress over perfection.</p>
         <p>When I’m not in existential crisis, you’ll find me solo traveling somewhere, geeking out over motorsports (or exposing myself to new sports), killing bots in Call of Duty, lifting at the gym, binging Netflix or adding a new anime to my watchlist knowing full well I won't finish it. Oh — and I moonlight as an amateur astronomer.</p>
         
+        <!-- Your Skills Section with Sorter -->
         <h2>What I Bring to the Table</h2>
+        <div class="skill-filters">
+          <button class="filter-btn" data-filter="language">Languages & Frameworks</button>
+          <button class="filter-btn" data-filter="ml">Machine Learning & Data</button>
+          <button class="filter-btn" data-filter="soft">Soft & Strategic</button>
+        </div>
+        <div class="skills-container">
+          <span class="skill-pill" data-category="language">Python</span>
+          <span class="skill-pill" data-category="language">JavaScript</span>
+          <span class="skill-pill" data-category="language">C/C++</span>
+          <span class="skill-pill" data-category="language">React</span>
+          <span class="skill-pill" data-category="language">HTML/CSS</span>
+          <span class="skill-pill" data-category="language">Firebase</span>
+          <span class="skill-pill" data-category="language">Git & GitHub</span>
+          <span class="skill-pill" data-category="language">SQL</span>
+          <span class="skill-pill" data-category="language">Flask</span>
+          <span class="skill-pill" data-category="language">Node.js</span>
+          <span class="skill-pill" data-category="ml">TensorFlow</span>
+          <span class="skill-pill" data-category="ml">Keras</span>
+          <span class="skill-pill" data-category="ml">Scikit-learn</span>
+          <span class="skill-pill" data-category="ml">Pandas</span>
+          <span class="skill-pill" data-category="ml">NumPy</span>
+          <span class="skill-pill" data-category="ml">MLflow</span>
+          <span class="skill-pill" data-category="ml">Cloudinary</span>
+          <span class="skill-pill" data-category="ml">OpenCV</span>
+          <span class="skill-pill" data-category="ml">Jupyter Notebook</span>
+          <span class="skill-pill" data-category="ml">Google Colab</span>
+          <span class="skill-pill" data-category="ml">REST APIs</span>
+          <span class="skill-pill" data-category="soft">UI/UX Design</span>
+          <span class="skill-pill" data-category="soft">Rapid Prototyping</span>
+          <span class="skill-pill" data-category="soft">Problem Solving</span>
+          <span class="skill-pill" data-category="soft">Research Writing</span>
+          <span class="skill-pill" data-category="soft">Cross-functional Collaboration</span>
+          <span class="skill-pill" data-category="soft">Taking Charge</span>
+          <span class="skill-pill" data-category="soft">Data Visualization</span>
+          <span class="skill-pill" data-category="soft">Creative Thinking</span>
+          <span class="skill-pill" data-category="soft">Figma</span>
+        </div>
 
-<!-- The new filter buttons -->
-<div class="skill-filters">
-  <button class="filter-btn" data-filter="language">Languages & Frameworks</button>
-  <button class="filter-btn" data-filter="ml">Machine Learning & Data</button>
-  <button class="filter-btn" data-filter="soft">Soft & Strategic</button>
-</div>
+        <!-- Your Final "Call to Action" Text -->
+        <h2>Let’s Build Something!</h2>
+        <p>I’m always looking to collaborate with people who want to shake things up, create menace ;) — designers, engineers, scientists, investors, you name it. If you’re working on something exciting, or just want to connect, hit me up. Let's create something cool!</p>
 
-<!-- The skills container now holds all skills, each with a data attribute -->
-<div class="skills-container">
-  <span class="skill-pill" data-category="language">Python</span>
-  <span class="skill-pill" data-category="language">JavaScript</span>
-  <span class="skill-pill" data-category="language">C/C++</span>
-  <span class="skill-pill" data-category="language">React</span>
-  <span class="skill-pill" data-category="language">HTML/CSS</span>
-  <span class="skill-pill" data-category="language">Firebase</span>
-  <span class="skill-pill" data-category="language">Git & GitHub</span>
-  <span class="skill-pill" data-category="language">SQL</span>
-  <span class="skill-pill" data-category="language">Flask</span>
-  <span class="skill-pill" data-category="language">Node.js</span>
-  <span class="skill-pill" data-category="ml">TensorFlow</span>
-  <span class="skill-pill" data-category="ml">Keras</span>
-  <span class="skill-pill" data-category="ml">Scikit-learn</span>
-  <span class="skill-pill" data-category="ml">Pandas</span>
-  <span class="skill-pill" data-category="ml">NumPy</span>
-  <span class="skill-pill" data-category="ml">MLflow</span>
-  <span class="skill-pill" data-category="ml">Cloudinary</span>
-  <span class="skill-pill" data-category="soft">UI/UX Design</span>
-  <span class="skill-pill" data-category="soft">Problem Solving</span>
-  <span class="skill-pill" data-category="soft">Research Writing</span>
-  <span class="skill-pill" data-category="soft">Cross-functional Collaboration</span>
-  <span class="skill-pill" data-category="soft">Taking Charge</span>
-  <span class="skill-pill" data-category="soft">Data Visualization</span>
-  <span class="skill-pill" data-category="soft">Adaptability</span>
-  <span class="skill-pill" data-category="soft">Creative Thinking</span>
-  <span class="skill-pill" data-category="soft">Figma</span>
-</div>
-
-
-
-        <h2>Let’s Build Something! </h2>
-        <p>I’m always looking to collaborate with people who want to shake things up, create menace ;) — designers, engineers, scientists, investors, you name it. If you’re working on something exciting, or just want to connect, hit me up. Let's create something cool! </p>
-
+        <!-- Your Buttons -->
         <div class="button-container">
           <a href="#" class="btn">View My Projects</a>
           <a href="contact.html" class="btn secondary">Contact Me</a>
@@ -86,6 +87,7 @@
     </section>
   </main>
 
+  <!-- The necessary scripts for this page -->
   <script src="particles.js"></script>
   <script src="skills.js"></script>
 </body>
