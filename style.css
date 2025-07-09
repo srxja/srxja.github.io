@@ -27,7 +27,6 @@ header {
 .logo {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #ffffff;
 }
 
 nav ul {
@@ -40,21 +39,20 @@ nav ul li a {
   color: #ffffff;
   text-decoration: none;
   font-weight: 400;
-  transition: color 0.3s ease;
 }
 
-nav ul li a:hover {
-  color: #d1d1d1;
+main {
+    padding: 0 3rem;
 }
 
-/* --- THE CORRECT, MERGED HERO SECTION --- */
+/* --- YOUR DESIRED HERO SECTION --- */
 .hero {
-  height: calc(100vh - 100px); /* Your desired height */
+  height: calc(100vh - 100px); /* Your height */
   margin: 0 3rem;
-  border-radius: 30px; /* Your desired radius */
-  box-shadow: 0 0 60px rgba(0, 20, 255, 0.2); /* Your desired shadow */
+  border-radius: 30px; /* Your radius */
+  box-shadow: 0 0 60px rgba(0, 20, 255, 0.2); /* Your shadow */
   
-  /* Essential properties for layout */
+  /* Essential layout properties */
   position: relative; 
   overflow: hidden; 
   display: flex;
@@ -63,7 +61,7 @@ nav ul li a:hover {
   text-align: center;
 }
 
-/* --- THE CORRECT, MERGED CANVAS STYLE --- */
+/* --- YOUR DESIRED CANVAS STYLE --- */
 #custom-particles {
   position: absolute;
   top: 0;
@@ -72,15 +70,14 @@ nav ul li a:hover {
   height: 100%;
   z-index: 1; /* Places it behind the text */
 
-  /* The background is ON THE CANVAS, not the .hero container */
+  /* Your exact background gradient */
   background: radial-gradient(circle at center, rgba(78, 0, 150, 0.6), rgba(0, 20, 255, 0.2));
-  /* We DO NOT use pointer-events: none; here */
 }
 
 /* --- HERO CONTENT (THE TEXT) --- */
 .hero-content {
   position: relative;
-  z-index: 2; /* Ensures content is on top of particles */
+  z-index: 2; /* Ensures it is on top of the canvas */
 }
 
 .hero-content h1 {
@@ -91,8 +88,6 @@ nav ul li a:hover {
 
 .hero-content p {
   font-size: 1.2rem;
-  font-weight: 400;
-  opacity: 0.9;
   max-width: 600px;
   margin: 0 auto;
 }
