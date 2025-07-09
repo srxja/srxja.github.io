@@ -47,72 +47,40 @@ nav ul li a:hover {
   color: #d1d1d1;
 }
 
-
-/* Hero Section*/
-/*
+/* --- THE CORRECT, MERGED HERO SECTION --- */
 .hero {
-  height: calc(100vh - 120px);
+  height: calc(100vh - 100px); /* Your desired height */
   margin: 0 3rem;
-  border-radius: 20px;
-  position: relative;
-  overflow: hidden;
-*/
-
-  /* --- THIS IS THE KEY FIX FOR CENTERING --- */
-  /* These properties will center the .hero-content div */
-/*
-  display: flex;
-  justify-content: center; 
-  align-items: center;   
-  text-align: center;     
-}
-*/
-
-/* Hero Section */
-.hero {
-  height: calc(100vh - 100px);
+  border-radius: 30px; /* Your desired radius */
+  box-shadow: 0 0 60px rgba(0, 20, 255, 0.2); /* Your desired shadow */
+  
+  /* Essential properties for layout */
+  position: relative; 
+  overflow: hidden; 
   display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle at center, rgba(78, 0, 150, 0.6), rgba(0, 20, 255, 0.2));
-  border-radius: 30px;
-  margin: 0 3rem;
   text-align: center;
-  box-shadow: 0 0 60px rgba(0, 20, 255, 0.2);
-  position: relative;
-  overflow: hidden;
 }
 
-
-
-
-/* Canvas for particles */
-/*#custom-particles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1; /* Behind the content */
-
-  /* --- THIS IS THE KEY FIX FOR THE BACKGROUND --- */
-  /* The gradient is now the background of the canvas itself */
-  /*background: radial-gradient(circle at center, rgba(78, 0, 150, 0.6), rgba(0, 20, 255, 0.2));
-}*/
-
+/* --- THE CORRECT, MERGED CANVAS STYLE --- */
 #custom-particles {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
+  z-index: 1; /* Places it behind the text */
+
+  /* The background is ON THE CANVAS, not the .hero container */
+  background: radial-gradient(circle at center, rgba(78, 0, 150, 0.6), rgba(0, 20, 255, 0.2));
+  /* We DO NOT use pointer-events: none; here */
 }
-/* Hero Content (the text) */
+
+/* --- HERO CONTENT (THE TEXT) --- */
 .hero-content {
   position: relative;
-  z-index: 2; /* Ensure content is on top of particles */
+  z-index: 2; /* Ensures content is on top of particles */
 }
 
 .hero-content h1 {
