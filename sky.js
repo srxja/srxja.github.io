@@ -27,6 +27,9 @@
   let pole = { x: 0, y: 0 }; // celestial pole in screen space
   let t0 = performance.now();
   let meteor = null, nextMeteorAt = 0;
+  // pointer: parallax target/current (normalised -1..1) and "dark-adapted" spot
+  const ptr = { tx: 0, ty: 0, x: 0, y: 0, px: -9999, py: -9999, hot: 0 };
+  const ADAPT_R = 140; // px radius where faint stars come up
 
   // ---------- helpers ----------
   const rand = (a, b) => a + Math.random() * (b - a);
@@ -146,6 +149,10 @@
     // Sidereal rotation: real sky turns 360° in 23h56m. We speed it up so a
     // patient viewer sees drift: one full turn per ~40 minutes.
     const rot = reduced ? 0 : (t / 2400) * Math.PI * 2;
+    // ease parallax toward the pointer; a real window view shifts a few px
+    ptr.x += (ptr.tx - ptr.x) * 0.06; ptr.y += (ptr.ty - ptr.y) * 0.06;
+    const ox = ptr.x * 14, oy = ptr.y * 10;
+    ptr.hot += ((ptr.px > -999 ? 1 : 0) - ptr.hot) * 0.08;
 
     // sky base: very dark, slight blue-grey; a touch brighter toward the horizon (bottom)
     const grad = ctx.createLinearGradient(0, 0, 0, H);
@@ -158,7 +165,7 @@
     // Milky Way (rotates with the stars)
     if (milky) {
       ctx.save();
-      ctx.translate(pole.x, pole.y);
+      ctx.translate(pole.x + ox * 0.5, pole.y + oy * 0.5);
       ctx.rotate(rot);
       ctx.translate(-pole.x, -pole.y);
       ctx.imageSmoothingEnabled = true;
@@ -174,11 +181,23 @@
       const s = stars[i];
       const c = Math.cos(s.th), sn = Math.sin(s.th);
       const lx = s.r * c, ly = s.r * sn;
-      const x = pole.x + lx * cosR - ly * sinR;
-      const y = pole.y + lx * sinR + ly * cosR;
+      const depth = s.m < 2.5 ? 1 : s.m < 4.5 ? 0.7 : 0.45;
+      const x = pole.x + lx * cosR - ly * sinR + ox * depth;
+      const y = pole.y + lx * sinR + ly * cosR + oy * depth;
       if (x < -3 || y < -3 || x > W + 3 || y > H + 3) continue;
 
       let a = s.alpha;
+      let size = s.size;
+      if (ptr.hot > 0.01) {
+        const dx = x - ptr.px, dy = y - ptr.py, d2 = dx * dx + dy * dy;
+        if (d2 < ADAPT_R * ADAPT_R) {
+          // averted-vision effect: faint stars gain the most, bright ones barely change
+          const k = (1 - Math.sqrt(d2) / ADAPT_R) * ptr.hot;
+          const gain = s.m > 4 ? 0.55 : s.m > 2.5 ? 0.25 : 0.08;
+          a = Math.min(1, a + gain * k);
+          size += 0.35 * k;
+        }
+      }
       if (s.twinkle && !reduced) {
         // two incommensurate sines → irregular flicker, not a pulse
         const f = Math.sin(t * s.rate + s.ph) * 0.6 + Math.sin(t * s.rate * 1.73 + s.ph * 2.1) * 0.4;
@@ -188,13 +207,13 @@
       a *= 1 - 0.35 * Math.max(0, (y / H - 0.7) / 0.3);
 
       const [r, g, b] = s.rgb;
-      if (s.size > 1.3) {
+      if (size > 1.3) {
         // bright stars: small soft halo
         ctx.fillStyle = `rgba(${r},${g},${b},${a * 0.18})`;
-        ctx.beginPath(); ctx.arc(x, y, s.size * 2.6, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(x, y, size * 2.6, 0, Math.PI * 2); ctx.fill();
       }
       ctx.fillStyle = `rgba(${r},${g},${b},${a})`;
-      ctx.beginPath(); ctx.arc(x, y, s.size, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(x, y, size, 0, Math.PI * 2); ctx.fill();
     }
 
     // Meteor: brief, thin, slightly greenish-white streak that fades.
@@ -240,6 +259,30 @@
     if (reduced) return;
     if (document.hidden) cancelAnimationFrame(raf); else raf = requestAnimationFrame(loop);
   });
+
+  // ---------- interaction ----------
+  // The canvas itself ignores pointer events (so text stays selectable), so we
+  // listen on the window and read the raw position.
+  window.addEventListener('pointermove', e => {
+    ptr.tx = (e.clientX / W) * 2 - 1; ptr.ty = (e.clientY / H) * 2 - 1;
+    ptr.px = e.clientX; ptr.py = e.clientY;
+  }, { passive: true });
+  window.addEventListener('pointerleave', () => { ptr.px = ptr.py = -9999; });
+  document.addEventListener('mouseleave', () => { ptr.px = ptr.py = -9999; });
+  // click on empty sky → a meteor through that point (links/buttons still work as usual)
+  window.addEventListener('pointerdown', e => {
+    if (reduced || meteor) return;
+    const t = e.target;
+    if (t.closest && t.closest('a, button, input, textarea, select, .lightbox, .menu')) return;
+    const ang = rand(Math.PI * 0.55, Math.PI * 0.8);
+    const sp = rand(900, 1500);
+    // start slightly up-track so the streak passes through the click point
+    meteor = {
+      x: e.clientX - Math.cos(ang) * 40, y: e.clientY - Math.sin(ang) * 40,
+      vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp,
+      born: performance.now(), life: rand(300, 520), len: rand(70, 150),
+    };
+  }, { passive: true });
 
   build();
   nextMeteorAt = performance.now() + rand(8000, 25000);
