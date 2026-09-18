@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sky log — Sruja Brahmbhatt</title>
+  <meta name="description" content="Astrophotography and observation notes by Sruja Brahmbhatt.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<div class="page">
+  <nav class="nav" aria-label="Site">
+    <a class="brand" href="index.html">Home</a>
+    <div class="menu">
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu-list" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="menu-list" id="menu-list">
+        <a href="projects.html">Projects</a>
+        <a href="publications.html">Publications</a>
+        <a href="sky.html" aria-current="page">Sky</a>
+        <a href="blog.html">Blog</a>
+      </div>
+    </div>
+    <a href="about.html">About</a>
+  </nav>
+
+  <section>
+    <h2>Sky log</h2>
+    <p class="prose">
+      Things I've photographed from Ahmedabad and wherever else I've had a clear night.
+      Each entry lists the target, the date, and what it was shot with.
+    </p>
+    <div id="gallery" class="gallery" aria-live="polite"></div>
+  </section>
+
+  <footer>
+    <span>© 2026 Sruja Brahmbhatt</span>
+  </footer>
+</div>
+
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <button class="close" aria-label="Close">×</button>
+  <img alt="">
+  <div class="cap"></div>
+</div>
+
+<script src="sky.js"></script>
+<script src="nav.js"></script>
+<script>
+(async function () {
+  const grid = document.getElementById('gallery');
+  const lb = document.getElementById('lightbox');
+  const lbImg = lb.querySelector('img'), lbCap = lb.querySelector('.cap');
+
+  let items = [];
+  try {
+    const r = await fetch('gallery/index.json', { cache: 'no-store' });
+    items = await r.json();
+  } catch (e) {
+    grid.innerHTML = '<p class="empty">Couldn’t load gallery/index.json. If you opened this file directly, serve the folder over http (or push to GitHub Pages).</p>';
+    return;
+  }
+  if (!items.length) {
+    grid.innerHTML = '<p class="empty">No images yet. Add files to gallery/images and list them in gallery/index.json.</p>';
+    return;
+  }
+  items.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  for (const it of items) {
+    const fig = document.createElement('figure');
+    fig.className = 'shot';
+    const bits = [it.date, it.gear].filter(Boolean).join(' · ');
+    fig.innerHTML =
+      `<img loading="lazy" src="gallery/images/${it.file}" alt="${(it.title || '').replace(/"/g, '&quot;')}">` +
+      `<figcaption>${it.title || it.file}<small>${bits}</small></figcaption>`;
+    fig.addEventListener('click', () => {
+      lbImg.src = `gallery/images/${it.file}`;
+      lbImg.alt = it.title || '';
+      lbCap.textContent = [it.title, bits, it.notes].filter(Boolean).join(' — ');
+      lb.classList.add('open');
+    });
+    grid.appendChild(fig);
+  }
+  const close = () => { lb.classList.remove('open'); lbImg.src = ''; };
+  lb.querySelector('.close').addEventListener('click', close);
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+})();
+</script>
+</body>
+</html>

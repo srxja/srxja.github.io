@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sruja Brahmbhatt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<div class="page">
+  <nav class="nav" aria-label="Site">
+    <a class="brand" href="index.html">Home</a>
+    <div class="menu">
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu-list" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="menu-list" id="menu-list">
+        <a href="projects.html">Projects</a>
+        <a href="publications.html">Publications</a>
+        <a href="sky.html">Sky</a>
+        <a href="blog.html" aria-current="page">Blog</a>
+      </div>
+    </div>
+    <a href="about.html">About</a>
+  </nav>
+
+  <article class="post" id="post">
+    <p class="empty">Loading…</p>
+  </article>
+
+  <a class="back" href="blog.html">← All posts</a>
+
+  <footer>
+    <span>© 2026 Sruja Brahmbhatt</span>
+  </footer>
+</div>
+
+<script src="sky.js"></script>
+<script src="nav.js"></script>
+<script src="md.js"></script>
+<script>
+(async function () {
+  const art = document.getElementById('post');
+  const slug = new URLSearchParams(location.search).get('p');
+  if (!slug || !/^[\w-]+$/.test(slug)) { art.innerHTML = '<p class="empty">No such post.</p>'; return; }
+  let meta = {};
+  try {
+    const idx = await (await fetch('posts/index.json', { cache: 'no-store' })).json();
+    meta = idx.find(p => p.slug === slug) || {};
+  } catch (e) {}
+  let md;
+  try {
+    const r = await fetch(`posts/${slug}.md`, { cache: 'no-store' });
+    if (!r.ok) throw new Error();
+    md = await r.text();
+  } catch (e) { art.innerHTML = '<p class="empty">No such post.</p>'; return; }
+
+  // Optional front matter: first lines "title: …" / "date: …" then a blank line.
+  const fm = md.match(/^(?:(\w+):\s*(.*)\n)+\n/);
+  if (fm) {
+    fm[0].trim().split('\n').forEach(l => { const [k, ...v] = l.split(':'); meta[k.trim()] = v.join(':').trim(); });
+    md = md.slice(fm[0].length);
+  }
+  const title = meta.title || slug.replace(/-/g, ' ');
+  document.title = `${title} — Sruja Brahmbhatt`;
+  const fmt = d => d ? new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+  art.innerHTML = `<h1>${title}</h1><p class="meta">${fmt(meta.date)}</p>` + renderMarkdown(md);
+})();
+</script>
+</body>
+</html>

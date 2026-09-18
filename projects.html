@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects — Sruja Brahmbhatt</title>
+  <meta name="description" content="Projects by Sruja Brahmbhatt: ML research, LLM agents, shipped web tools and hardware.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<div class="page">
+  <nav class="nav" aria-label="Site">
+    <a class="brand" href="index.html">Home</a>
+    <div class="menu">
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu-list" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="menu-list" id="menu-list">
+        <a href="projects.html" aria-current="page">Projects</a>
+        <a href="publications.html">Publications</a>
+        <a href="sky.html">Sky</a>
+        <a href="blog.html">Blog</a>
+      </div>
+    </div>
+    <a href="about.html">About</a>
+  </nav>
+
+  <section id="work" class="first">
+    <h2>Projects</h2>
+
+    <div class="entry">
+      <h3>Li-ion battery thermal anomaly detection</h3>
+      <p class="meta"><i>Research</i> — unsupervised learning on thermal imaging data</p>
+      <p>
+        A hybrid pipeline for spotting abnormal heating in EV battery cells. Engineered
+        temperature and gradient features plus autoencoder reconstruction error, reduced
+        with PCA, then scored anomalies by combining KMeans clustering with a convolutional
+        autoencoder. Hyperparameters tuned with Optuna; evaluated on ROC-AUC, F1 and recall.
+        Accepted at IEEE TENCON 2026.
+      </p>
+      <p class="tech">Python, scikit-learn, TensorFlow/Keras, Optuna</p>
+    </div>
+
+    <div class="entry">
+      <h3>Citation Knowledge Agent</h3>
+      <p class="meta"><i>Tsinghua GenAI Summer School</i> — LLM agents, knowledge graphs</p>
+      <p>
+        A browser-driving agent that verifies citations: it retrieves each cited source,
+        cross-checks the claim against it, and records the result in a knowledge graph
+        served over MCP.
+      </p>
+      <p class="tech">Playwright MCP, GLM (z.ai API), knowledge graphs</p>
+    </div>
+
+    <div class="entry">
+      <h3><a href="https://floket.vercel.app">Floket</a></h3>
+      <p class="meta"><i>Shipped</i> — AI-powered LinkedIn post scheduler</p>
+      <p>
+        Full-stack tool that drafts LinkedIn posts with an LLM and queues them for
+        publishing. Built and launched end to end.
+      </p>
+      <p class="tech">Next.js, FastAPI, Groq API, Upstash Redis</p>
+    </div>
+
+    <div class="entry">
+      <h3>EMG signal detection system</h3>
+      <p class="meta"><i>Hardware</i> — embedded systems, analog electronics</p>
+      <p>
+        A low-cost electromyography rig: surface electrodes into an LM324-based
+        amplification stage, read by an Arduino Nano, with threshold-based processing
+        for real-time muscle-activation response.
+      </p>
+      <p class="tech">Arduino Nano, LM324, analog signal conditioning</p>
+    </div>
+
+    <div class="entry">
+      <h3>RateMyFit</h3>
+      <p class="meta"><i>Personal</i> — real-time outfit voting web app</p>
+      <p>
+        Upload an outfit, get votes in real time. Firebase handles auth, vote syncing
+        and storage; Cloudinary handles image uploads.
+      </p>
+      <p class="tech">Firebase, Cloudinary, JavaScript</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Sruja Brahmbhatt</span>
+    <span></span>
+  </footer>
+</div>
+
+<script src="sky.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
